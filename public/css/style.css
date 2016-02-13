@@ -1,0 +1,220 @@
+html, body,
+a, img,
+p,h1,h2,h3,h4,h5,h6,
+ul,ol,li,
+div,span,
+fieldset, form, label, legend, textarea,
+table, tbody, tfoot, thead, tr, th, td,
+object, iframe
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	list-style:none;
+	font-family: inherit;
+	font-size: 100%;
+	color: inherit;
+	text-decoration: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+:focus {
+	outline: 0;
+}
+/* --------------  reset list end ------------ */
+@keyframes show
+{
+from {opacity: 0;}
+to {opacity: 1;}	
+}
+
+@-webkit-keyframes show 
+{
+from {opacity: 0;}
+to {opacity: 1;}
+}	
+html {
+	width: 100%;
+	height: 100%;
+}
+body {
+	text-align: left;
+	font-family: 'Titillium Web', Arial, sans-serif;
+	padding: 0;
+	padding-top: 0px;
+	transition: 400ms;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-color: #000;
+	width: 100%;
+	height: 100%;
+}
+.btn {
+    font-family: 'Titillium Web', Arial, sans-serif;
+}
+body #status > div {
+	float: left;
+	clear: both;
+	margin-top: 5%;
+}
+
+h1 {
+	font-size: 40px;
+	line-height: 110%;
+	margin-bottom: 50px;
+	font-weight: bold;
+	background: #fff;
+	padding: 5px 10px;
+	float: left;
+	margin-top: 8%;
+	transition: 400ms;
+}
+h2 {
+	font-size: 90px;
+	line-height: 100%;
+	margin: 0px;
+	font-weight: bold;
+	text-transform: uppercase;
+	padding: 5px 10px;
+	background: #fff;
+    color: #000;
+	float: left;
+	clear: both;
+}
+h3 {
+	font-size: 20px;
+	line-height: 110%;
+	margin-bottom: 0px;
+	font-weight: normal;
+	padding: 3px 10px 5px 10px;
+	background: #ddd;
+    color: #000;
+	clear: both;
+	float: left;
+	margin-left: 80px;
+}
+.error h2 {
+	background: #009fd2;
+	color: #003040;
+}
+.error h3 {
+	background: #009fd2;
+	color: #fff;
+}
+.free h2 {
+background: #8fbd00;
+color: #2c4000;
+}
+.free h3 {
+background: #8fbd00;
+color: #fff;
+}
+.occupied h2 {
+background: #e60053;
+color: #3a0013;
+}
+.occupied h3 {
+background: #e60053;
+color: #fff;
+}
+
+.loading_bg { }
+.loading_bg #free { display:none; }  
+.loading_bg #occupied { display:none; }
+.loading_bg #reservation { display:none; }
+.loading_bg #error { display:none; }
+
+.free_bg {
+	background-image: url('../images/tumblr_m1ob9cERSM1r3bteso1_500.gif');
+}
+
+.free_bg #free { }  
+.free_bg #occupied { display:none; }
+.free_bg #reservation { display:none; }
+.free_bg #error { display:none; }
+
+.occupied_bg  {
+	background-image: url('../images/tumblr_mzhjqkoiMT1shsw6uo1_500.gif');
+}
+
+.occupied_bg #free { display:none; }  
+.occupied_bg #occupied { }
+.occupied_bg #reservation { display:none; }
+.occupied_bg #error { display:none; }
+
+.error_bg  {
+	background-image: url('../images/tumblr_mm0038sZGH1qdlh1io1_400.gif');
+}
+
+.error_bg #free { display:none; }  
+.error_bg #occupied { display:none;}
+.error_bg #reservation { display:none; }
+.error_bg #error { }
+
+.reservation_bg {
+	background-image: url('../images/tumblr_m1g8ktp6yF1r8vk15o1_500.gif');
+}
+
+.reservation_bg #free { display:none; }  
+.reservation_bg #occupied { display:none;}
+.reservation_bg #reservation { }
+.reservation_bg #error { display:none; }
+
+
+
+form {
+    display: inline;
+    padding: 0;
+    margin: 0;
+}
+
+.btn {
+    border: none;
+    padding: 5px 20px;
+    background: #000;
+    color: #fff;
+    font-size: 20px;
+	line-height: 110%;
+	margin-bottom: 0px;
+	font-weight: normal;
+    cursor: pointer;
+}
+.btn:hover {
+    background: #e60053;
+    color: #fff;
+}
+
+
+@media screen and (max-width: 800px) {
+	h1 {
+		font-size: 32px;
+	}
+	h2 {
+		font-size: 50px;
+	}
+	h3 {
+		margin-left: 25px;
+		font-size: 16px;
+	}
+}
+@media screen and (max-width: 400px) {
+	h1 {
+		font-size: 26px;
+	}
+	h2 {
+		font-size: 46px;
+	}
+}
+@media screen and (max-width: 280px) {
+	h1 {
+		font-size: 20px;
+	}
+	h2 {
+		font-size: 36px;
+	}
+}

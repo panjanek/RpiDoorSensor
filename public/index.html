@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/" lang="pl"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8 ie7" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/" lang="pl"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9 ie8" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/" lang="pl"> <![endif]-->
+<!--[if IE 9]>         <html class="no-js lt-ie10 ie9" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/" lang="pl"> <![endif]-->
+<!--[if !IE]><!--> <html class="no-js" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/" lang="pl"> <!--<![endif]-->
+<head id="Head1">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>WC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="shortcut icon" href="images/wc.ico" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:300,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<script src="socket.io/socket.io.js"></script>
+    <script src="js/jquery-2.1.0.min.js"></script>
+</head>
+<body id="body" class="loading_bg">       
+    <!-- body -->
+    <h1>Czy toaleta jest wolna?</h1>
+    <span id="status">
+		
+        <div id="free" class="free">
+	        <h2>Tak </h2>
+	        <h3>toaleta jest wolna</h3>
+            <input id="reservationBtn" class="btn" type="submit" value="Zarezerwuj! Idę!" />
+        </div>	
+			
+		<div id="occupied" class="occupied">
+	        <h2>Nie</h2>
+	        <h3>toaleta jest zajęta <text> od <span id="occupiedSeconds"></span></text>
+               <div id="longOccupied" style="display:none"><img src="images/alice2.jpg" /></div>
+		    </h3>
+        </div>	
+	
+        <div id="reservation" class="reservation">
+	        <h2>Ktoś zmierza do WC</h2>
+	        <h3>Rezerwacja potrwa jeszcze: <span id="reserved"></span>''</h3>
+        </div>   
+		
+        <div id="error" class="error">
+	        <h2>Ups</h2>
+	        <h3>coś nie działa</h3>
+        </div>		
+    </span>
+	
+    <script type="text/javascript">
+	   $(function () {
+	       $("#reservationBtn").click(function() {
+		       $.post("api/reserve", {}, function(r) {
+			       console.log("reservation result: ", r);
+			   });
+		   });
+	   });
+	   
+	   var occupiedTimerUpdateHandler = -1;
+	   var occupiedTimerStart = null;
+	   var reservationTimerUpdateHandler = -1;
+	   var reservationTimerStart = null;	   
+	   var state = null;
+       var socket = io.connect();
+        socket.on('change', function (data) {
+           console.log('change');
+           console.log(data);
+		   refresh(data);
+        });
+	   
+	    function refresh(data) {
+		   state = data;
+	       $("#body").removeClass("loading_bg");
+	       $("#body").removeClass("error_bg");
+		   $("#body").removeClass("occupied_bg");
+		   $("#body").removeClass("free_bg");
+		   $("#body").removeClass("reservation_bg");
+	       if (data.error) {
+		       setFavicon("images/wc-closed.ico");
+		       $("#body").addClass("error_bg");	
+               document.title = "błąd";			   
+		   } else if (data.reservation) {
+	    	    setFavicon("images/wc-closed.ico");
+		        $("#body").addClass("reservation_bg");
+			    if (data.reservationSeconds !== null) {
+			        $("#reserved").text(data.reservationSeconds);
+				    clearReservationTimer();
+				    reservationTimerStart = new Date().getTime();
+				    reservationTimerUpdateHandler = setInterval("reservationTimerUpdate()", 1000);				   
+			    }
+				document.title = "rezerwacja";		
+		   } else if (data.doorClosed) {
+		        setFavicon("images/wc-closed.ico");
+		        $("#body").addClass("occupied_bg");
+		        clearReservationTimer();
+			    if (data.closedSeconds !== null) {
+			        $("#occupiedSeconds").text(secondsToPrettyTime(data.closedSeconds));
+				    clearOccupiedTimer();
+				    occupiedTimerStart = new Date().getTime();
+				    occupiedTimerUpdateHandler = setInterval("occupiedTimerUpdate()", 1000);
+			    }
+			    document.title = "zajęta";
+		   } else {
+		       setFavicon("images/wc-open.ico");
+			   clearOccupiedTimer();
+		       $("#body").addClass("free_bg");	
+               document.title = "wolna";			   
+		   }
+	    } 
+		
+		function occupiedTimerUpdate() {
+		    var secondsSinceRefresh = Math.floor((new Date().getTime() - occupiedTimerStart) / 1000);
+			$("#occupiedSeconds").text(secondsToPrettyTime(state.closedSeconds + secondsSinceRefresh));
+		}
+		
+		function reservationTimerUpdate() {
+		    var secondsSinceRefresh = Math.floor((new Date().getTime() - reservationTimerStart) / 1000);
+			var secondsLeft = state.reservationSeconds - secondsSinceRefresh;
+			if (secondsLeft > 0) {
+			    $("#reserved").text(secondsLeft);
+				document.title = "rezerwacja (" + secondsLeft + ")";	
+			} else {
+			    $("#reserved").text("");
+				clearInterval(reservationTimerUpdateHandler);
+			}
+		}		
+		
+		function clearReservationTimer() {
+			if (reservationTimerUpdateHandler != -1) {
+				clearInterval(reservationTimerUpdateHandler);
+				reservationTimerUpdateHandler = -1;
+			}	
+		}
+		
+		function clearOccupiedTimer() {
+			if (occupiedTimerUpdateHandler != -1) {
+			    clearInterval(occupiedTimerUpdateHandler);
+				occupiedTimerUpdateHandler = -1;
+			}
+		}		
+			/*
+        function setFavicon(icoUrl) {
+           $("head link[rel='shortcut icon']").remove();
+           document.head = document.head || document.getElementsByTagName('head')[0];
+           link = document.createElement('link');
+           link.id = 'dynamic-favicon';
+           link.rel = 'shortcut icon';
+           link.href = icoUrl;
+           document.head.appendChild(link);
+        }*/
+	
+
+		document.head || (document.head = document.getElementsByTagName('head')[0]);
+
+		function setFavicon(src) {
+		 var link = document.createElement('link'),
+			 oldLink = document.getElementById('dynamic-favicon');
+		 link.id = 'dynamic-favicon';
+		 link.rel = 'shortcut icon';
+		 link.href = src;
+		 if (oldLink) {
+		  document.head.removeChild(oldLink);
+		 }
+		 document.head.appendChild(link);
+		}		
+	   
+        function secondsToPrettyTime(sec) {
+			var minutes = Math.floor(sec / 60);
+			var seconds = sec % 60;
+			var txt = seconds + "''";
+			if (seconds <= 9) {
+				txt = "0" + txt;
+			}
+			if (minutes > 0)
+			{
+				txt = minutes + "'" + txt;
+			}
+
+			return txt;
+        } 
+    </script>
+</body>
+</html>
