@@ -19,8 +19,8 @@ Node application monitors state of S1 switch connected to GPIO using shell comma
 
 After starting nodejs web application this is how the web interface looks like:
 
-| free          | occupied      | reserved  |
-| ------------- |:-------------:| -----:|
+| free          | occupied      | reserved   |
+| ------------- |:-------------:| ---------- |
 | ![alt tag](https://raw.githubusercontent.com/panjanek/RpiDoorSensor/master/doc/toilet-free.jpg)  | ![alt tag](https://raw.githubusercontent.com/panjanek/RpiDoorSensor/master/doc/toilet-occupied.jpg) | ![alt tag](https://raw.githubusercontent.com/panjanek/RpiDoorSensor/master/doc/toilet-reservation.jpg) |
 
 # Installation
@@ -47,7 +47,7 @@ sudo nodejs app.js
 chmod +x doorstart.sh 
 sudo contab -e
 ```
-   Add the following line in editor
+   Add the following line in editor:
    ```
 @reboot /home/pi/doorstart.sh &
 ```
