@@ -17,9 +17,26 @@ Node application monitors state of S1 switch connected to GPIO using shell comma
 
 # How it looks
 
+After starting nodejs web application this is how the web interface looks like:
+
 | free          | occupied      | reserved  |
 | ------------- |:-------------:| -----:|
 | ![alt tag](https://raw.githubusercontent.com/panjanek/RpiDoorSensor/master/doc/toilet-free.jpg)  | ![alt tag](https://raw.githubusercontent.com/panjanek/RpiDoorSensor/master/doc/toilet-occupied.jpg) | ![alt tag](https://raw.githubusercontent.com/panjanek/RpiDoorSensor/master/doc/toilet-reservation.jpg) |
+
+# Installation
+
+1. Setup [Raspberry Pi with Raspian](https://www.raspberrypi.org/downloads/raspbian/)
+2. Upgrade [nodejs to 4.0.0 or later](http://blog.wia.io/installing-node-js-v4-0-0-on-a-raspberry-pi/)
+3. Perform following commands in raspberry pi home folder (/home/pi/):
+```
+git clone https://github.com/panjanek/RpiDoorSensor.git
+cd RpiDoorSensor
+npm install
+```
+4. Run the application
+```
+sudo nodejs app.js
+```
 
 
 
