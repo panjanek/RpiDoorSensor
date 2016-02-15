@@ -130,7 +130,7 @@ color: #fff;
 .loading_bg #error { display:none; }
 
 .free_bg {
-	background-image: url('../images/tumblr_m1ob9cERSM1r3bteso1_500.gif');
+	background-image: url('http://24.media.tumblr.com/tumblr_m1ob9cERSM1r3bteso1_500.gif');
 }
 
 .free_bg #free { }  
@@ -139,7 +139,7 @@ color: #fff;
 .free_bg #error { display:none; }
 
 .occupied_bg  {
-	background-image: url('../images/tumblr_mzhjqkoiMT1shsw6uo1_500.gif');
+	background-image: url('https://45.media.tumblr.com/181039587687616173b11f5c14ae9331/tumblr_mzhjqkoiMT1shsw6uo1_500.gif');
 }
 
 .occupied_bg #free { display:none; }  
@@ -148,7 +148,7 @@ color: #fff;
 .occupied_bg #error { display:none; }
 
 .error_bg  {
-	background-image: url('../images/tumblr_mm0038sZGH1qdlh1io1_400.gif');
+	background-image: url('http://24.media.tumblr.com/a13494fb3cda1e40ab39211973a094f9/tumblr_mm0038sZGH1qdlh1io1_400.gif');
 }
 
 .error_bg #free { display:none; }  
@@ -157,7 +157,7 @@ color: #fff;
 .error_bg #error { }
 
 .reservation_bg {
-	background-image: url('../images/tumblr_m1g8ktp6yF1r8vk15o1_500.gif');
+	background-image: url('http://24.media.tumblr.com/tumblr_m1g8ktp6yF1r8vk15o1_500.gif');
 }
 
 .reservation_bg #free { display:none; }  
