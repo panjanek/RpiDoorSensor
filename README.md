@@ -19,8 +19,7 @@ Node application monitors state of S1 switch connected to GPIO using shell comma
 
 | free          | occupied      | reserved  |
 | ------------- |:-------------:| -----:|
-| ![alt tag](https://raw.githubusercontent.com/panjanek/RpiDoorSensor/master/doc/toilet-free.jpg)  | ![alt tag](https://raw.githubusercontent.com/panjanek/RpiDoorSensor/master/doc/toilet-occupied.jpg) 
- | ![alt tag](https://raw.githubusercontent.com/panjanek/RpiDoorSensor/master/doc/toilet-reservation.jpg) |
+| ![alt tag](https://raw.githubusercontent.com/panjanek/RpiDoorSensor/master/doc/toilet-free.jpg)  | ![alt tag](https://raw.githubusercontent.com/panjanek/RpiDoorSensor/master/doc/toilet-occupied.jpg) | ![alt tag](https://raw.githubusercontent.com/panjanek/RpiDoorSensor/master/doc/toilet-reservation.jpg) |
 
 
 
