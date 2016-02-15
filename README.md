@@ -41,8 +41,15 @@ npm install
 sudo nodejs app.js
 ```
 
-5. In order to start the application at boot add the following line in ```contab -e```
+5. In order to start the application at boot add the following line in 
 
+   ``` 
+chmod +x doorstart.sh 
+contab -e
+```
+   Add the following line in editor
    ```
 @reboot /home/pi/doorstart.sh &
 ```
+   Save and exit. After reboot the nodejs application will run forever
+
