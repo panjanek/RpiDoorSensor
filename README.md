@@ -28,17 +28,20 @@ After starting nodejs web application this is how the web interface looks like:
 1. Setup [Raspberry Pi with Raspian](https://www.raspberrypi.org/downloads/raspbian/)
 2. Upgrade [nodejs to 4.0.0 or later](http://blog.wia.io/installing-node-js-v4-0-0-on-a-raspberry-pi/)
 3. Perform following commands in raspberry pi home folder (/home/pi/):
-...```
+...
+```
 git clone https://github.com/panjanek/RpiDoorSensor.git
 cd RpiDoorSensor
 npm install
 ```
 4. Run the application
-...```
+...
+```
 sudo nodejs app.js
 ```
 5. In order to start the application at boot add the following line in ```contab -e```
-...```
+...
+```
 @reboot /home/pi/doorstart.sh &
 ```
 
