@@ -34,15 +34,15 @@ git clone https://github.com/panjanek/RpiDoorSensor.git
 cd RpiDoorSensor
 npm install
 ```
+
 4. Run the application
    
 ```
 sudo nodejs app.js
 ```
+
 5. In order to start the application at boot add the following line in ```contab -e```
    
 ```
 @reboot /home/pi/doorstart.sh &
 ```
-
-
