@@ -59,19 +59,24 @@
 	   var reservationTimerStart = null;	   
 	   var state = null;
        var socket = io.connect();
-        socket.on('change', function (data) {
+	   
+       socket.on('change', function (data) {
            console.log('change');
            console.log(data);
 		   refresh(data);
         });
+		
+       socket.on('connect_error', function (data) {
+           console.log('error');
+	       removeBackground();
+		   setFavicon("images/wc-closed.ico");
+		   $("#body").addClass("error_bg");	
+		   document.title = "error";
+        });			
 	   
 	    function refresh(data) {
 		   state = data;
-	       $("#body").removeClass("loading_bg");
-	       $("#body").removeClass("error_bg");
-		   $("#body").removeClass("occupied_bg");
-		   $("#body").removeClass("free_bg");
-		   $("#body").removeClass("reservation_bg");
+           removeBackground();
 	       if (data.error) {
 		       setFavicon("images/wc-closed.ico");
 		       $("#body").addClass("error_bg");	
@@ -134,19 +139,15 @@
 			    clearInterval(occupiedTimerUpdateHandler);
 				occupiedTimerUpdateHandler = -1;
 			}
-		}		
-			/*
-        function setFavicon(icoUrl) {
-           $("head link[rel='shortcut icon']").remove();
-           document.head = document.head || document.getElementsByTagName('head')[0];
-           link = document.createElement('link');
-           link.id = 'dynamic-favicon';
-           link.rel = 'shortcut icon';
-           link.href = icoUrl;
-           document.head.appendChild(link);
-        }*/
-	
-
+		}	
+		
+        function removeBackground() {
+	       $("#body").removeClass("loading_bg");
+	       $("#body").removeClass("error_bg");
+		   $("#body").removeClass("occupied_bg");
+		   $("#body").removeClass("free_bg");
+		   $("#body").removeClass("reservation_bg");			
+		}	
 		document.head || (document.head = document.getElementsByTagName('head')[0]);
 
 		function setFavicon(src) {
