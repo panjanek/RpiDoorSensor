@@ -49,7 +49,7 @@ sudo contab -e
 ```
    Add the following line in editor:
    ```
-@reboot /home/pi/doorstart.sh &
+@reboot /home/pi/RpiDoorSensor/doorstart.sh &
 ```
    Save and exit. After reboot the nodejs application will run forever.
 
